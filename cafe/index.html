@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Una pregunta importante...</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fdf2f8; /* Un tono rosado muy suave */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden; /* Evita que salgan barras de scroll cuando el botón vuela */
+            margin: 0;
+            text-align: center;
+        }
+        .container {
+            position: relative;
+            z-index: 10;
+        }
+        h1 { color: #be185d; margin-bottom: 30px; }
+        .buttons {
+            position: relative;
+            height: 50px;
+        }
+        button {
+            padding: 12px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        #btn-yes {
+            background-color: #10b981;
+            color: white;
+            margin-right: 20px;
+        }
+        #btn-yes:hover { background-color: #059669; }
+        
+        #btn-no {
+            background-color: #ef4444;
+            color: white;
+            transition: all 0.2s ease; /* Hace que el salto se vea fluido */
+        }
+        .hidden { display: none !important; }
+        #success-msg {
+            color: #be185d;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        #success-msg img {
+            margin-top: 20px;
+            border-radius: 12px;
+            max-width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="main-container">
+        <h1>¿Quieres ir a tomar un café conmigo? ☕</h1>
+        <div class="buttons">
+            <button id="btn-yes">¡Obvio!</button>
+            <button id="btn-no">No</button>
+        </div>
+    </div>
+
+    <div id="success-msg" class="hidden">
+        <p>¡Sabía que dirías que sí! ❤️</p>
+        <!-- Puedes cambiar este enlace por cualquier GIF de Giphy o Tenor -->
+        <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="Gato feliz">
+    </div>
+
+    <script>
+        const btnNo = document.getElementById('btn-no');
+        const btnYes = document.getElementById('btn-yes');
+        const container = document.getElementById('main-container');
+        const successMsg = document.getElementById('success-msg');
+
+        const moveButton = (e) => {
+            // Evita el click fantasma en móviles
+            if (e.type === 'touchstart') e.preventDefault(); 
+            
+            // Cambiamos a posición absoluta para moverlo libremente
+            btnNo.style.position = 'absolute';
+            
+            // Calculamos límites para que no se salga de la pantalla
+            const maxX = window.innerWidth - btnNo.offsetWidth;
+            const maxY = window.innerHeight - btnNo.offsetHeight;
+            
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            
+            btnNo.style.left = `${randomX}px`;
+            btnNo.style.top = `${randomY}px`;
+        };
+
+        // Dispara la evasión tanto con el mouse como al intentar tocar la pantalla
+        btnNo.addEventListener('mouseover', moveButton);
+        btnNo.addEventListener('touchstart', moveButton, { passive: false });
+
+        // Acción de éxito
+        btnYes.addEventListener('click', () => {
+            container.classList.add('hidden');
+            successMsg.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
