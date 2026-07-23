@@ -82,19 +82,30 @@
         const successMsg = document.getElementById('success-msg');
 
         const moveButton = (e) => {
-            // Evita el click fantasma en móviles
-            if (e.type === 'touchstart') e.preventDefault(); 
+            // Evita el click fantasma y el scroll involuntario en móviles
+            if (e.type === 'touchstart') {
+                e.preventDefault(); 
+            }
             
             // Cambiamos a posición absoluta para moverlo libremente
             btnNo.style.position = 'absolute';
+            btnNo.style.zIndex = '1000'; // Asegura que siempre esté por encima
+
+            // Definimos un margen de seguridad en píxeles (área segura)
+            // para que no toque los bordes físicos de la pantalla.
+            const paddingSeguro = 15; 
+
+            // Calculamos límites máximos reales restando el tamaño del botón 
+            // Y el margen de seguridad que definimos.
+            const maxX = window.innerWidth - btnNo.offsetWidth - paddingSeguro;
+            const maxY = window.innerHeight - btnNo.offsetHeight - paddingSeguro;
             
-            // Calculamos límites para que no se salga de la pantalla
-            const maxX = window.innerWidth - btnNo.offsetWidth;
-            const maxY = window.innerHeight - btnNo.offsetHeight;
+            // Generamos la posición aleatoria asegurando que empiece
+            // al menos en el 'paddingSeguro' y no supere el máximo.
+            const randomX = Math.max(paddingSeguro, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(paddingSeguro, Math.floor(Math.random() * maxY));
             
-            const randomX = Math.floor(Math.random() * maxX);
-            const randomY = Math.floor(Math.random() * maxY);
-            
+            // Aplicamos las nuevas coordenadas seguras
             btnNo.style.left = `${randomX}px`;
             btnNo.style.top = `${randomY}px`;
         };
