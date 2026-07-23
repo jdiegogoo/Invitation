@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caja de Regalo - Te Amo</title>
+    <style>
+        :root {
+            --primary-color: #be185d;
+            --box-color: #9f1239; /* Rojo oscuro para la caja */
+            --bg-gradient: linear-gradient(135deg, #fbcfe8, #f472b6);
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: var(--bg-gradient);
+            font-family: 'Georgia', serif;
+            color: var(--primary-color);
+            overflow: hidden;
+        }
+
+        /* --- ESTILOS DE LA PANTALLA PRINCIPAL --- */
+        h1 {
+            font-family: 'Brush Script MT', cursive, sans-serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .caja-chocolates {
+            background-color: var(--box-color);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3), inset 0 0 20px rgba(0,0,0,0.5);
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Cuadrícula de 2x2 */
+            gap: 25px;
+            position: relative;
+        }
+
+        .caja-chocolates::before {
+            /* Tapa de la caja simulada en la parte superior */
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background-color: #e11d48;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .chocolate {
+            width: 80px;
+            height: 80px;
+            background-color: white; /* Fondo blanco circular para resaltar el emoji/imagen */
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            cursor: pointer;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .chocolate:hover {
+            transform: scale(1.15) translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        /* --- ESTILOS DE LAS TARJETAS (MODALES) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 350px;
+            width: 90%;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.8) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .modal-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-family: 'Brush Script MT', cursive, sans-serif;
+        }
+
+        .modal-card img {
+            max-width: 100%;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .modal-card p {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        .btn-cerrar {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        .btn-cerrar:hover {
+            background-color: #9d174d;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TÍTULO PRINCIPAL -->
+    <h1>Para ti - Te Amo</h1>
+
+    <!-- CAJA DE CHOCOLATES -->
+    <div class="caja-chocolates">
+        <!-- Puedes cambiar los emojis por etiquetas <img> si tienes imágenes PNG de chocolates -->
+        <div class="chocolate" id="btn-choc-1" title="Eres increíble">🍩</div>
+        <div class="chocolate" id="btn-choc-2" title="Gracias por todo">🧁</div>
+        <div class="chocolate" id="btn-choc-3" title="Mi lugar favorito">🍫</div>
+        <div class="chocolate" id="btn-choc-4" title="Te amo infinito">🍬</div>
+    </div>
+
+
+    <!-- ==========================================
+         SECCIÓN DE TARJETAS (UNA POR CHOCOLATE) 
+         ========================================== -->
+
+    <!-- TARJETA 1 -->
+    <div class="modal-overlay hidden" id="modal-1">
+        <div class="modal-card">
+            <h2>Eres increíble</h2>
+            <!-- Cambia este enlace por el GIF o imagen que quieras para la tarjeta 1 -->
+            <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="Animación 1">
+            <p>Amo tu forma de ser y tu hermoso corazón. Eres la mejor compañía de vida que pude encontrar.</p>
+            <button class="btn-cerrar" data-target="modal-1">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- TARJETA 2 -->
+    <div class="modal-overlay hidden" id="modal-2">
+        <div class="modal-card">
+            <h2>Gracias por todo</h2>
+            <!-- Cambia este enlace por el GIF o imagen que quieras para la tarjeta 2 -->
+            <img src="https://media.giphy.com/media/l4pTdcifPZLpDjL1e/giphy.gif" alt="Animación 2">
+            <p>Mi amor, gracias por tu cariño incondicional y por hacer cada uno de mis días más especiales.</p>
+            <button class="btn-cerrar" data-target="modal-2">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- TARJETA 3 -->
+    <div class="modal-overlay hidden" id="modal-3">
+        <div class="modal-card">
+            <h2>Mi lugar favorito</h2>
+            <!-- Cambia este enlace por el GIF o imagen que quieras para la tarjeta 3 -->
+            <img src="https://media.giphy.com/media/3o7TKoWXm3okO1kgHC/giphy.gif" alt="Animación 3">
+            <p>Mi lugar favorito en el mundo siempre será entre tus brazos. Gracias por hacerme tan feliz.</p>
+            <button class="btn-cerrar" data-target="modal-3">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- TARJETA 4 -->
+    <div class="modal-overlay hidden" id="modal-4">
+        <div class="modal-card">
+            <h2>Te amo infinito</h2>
+            <!-- Cambia este enlace por el GIF o imagen que quieras para la tarjeta 4 -->
+            <img src="https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif" alt="Animación 4">
+            <p>No hay palabras suficientes para describir cuánto te quiero. ¡Eres lo mejor que me ha pasado!</p>
+            <button class="btn-cerrar" data-target="modal-4">Cerrar</button>
+        </div>
+    </div>
+
+
+    <!-- ==========================================
+         LÓGICA JAVASCRIPT (No necesitas tocar esto)
+         ========================================== -->
+    <script>
+        // Función para abrir un modal específico
+        const abrirModal = (idModal) => {
+            document.getElementById(idModal).classList.remove('hidden');
+        };
+
+        // Función para cerrar cualquier modal
+        const cerrarModal = (idModal) => {
+            document.getElementById(idModal).classList.add('hidden');
+        };
+
+        // Asignar eventos de clic a cada chocolate
+        document.getElementById('btn-choc-1').addEventListener('click', () => abrirModal('modal-1'));
+        document.getElementById('btn-choc-2').addEventListener('click', () => abrirModal('modal-2'));
+        document.getElementById('btn-choc-3').addEventListener('click', () => abrirModal('modal-3'));
+        document.getElementById('btn-choc-4').addEventListener('click', () => abrirModal('modal-4'));
+
+        // Asignar eventos de clic a todos los botones de "Cerrar"
+        document.querySelectorAll('.btn-cerrar').forEach(boton => {
+            boton.addEventListener('click', (e) => {
+                const modalObjetivo = e.target.getAttribute('data-target');
+                cerrarModal(modalObjetivo);
+            });
+        });
+    </script>
+</body>
+</html>
