@@ -3,235 +3,383 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caja de Regalo - Te Amo</title>
+    <title>Para ti - Te Amo</title>
+    <!-- Importando las fuentes exactas desde Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --primary-color: #be185d;
-            --box-color: #9f1239; /* Rojo oscuro para la caja */
-            --bg-gradient: linear-gradient(135deg, #fbcfe8, #f472b6);
+            --bg-color: #fce4e4;
+            --text-red: #a32a33;
+            --box-red: #c92118;
+            --box-dark: #3a1c11;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
+            background-color: var(--bg-color);
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
-            background: var(--bg-gradient);
-            font-family: 'Georgia', serif;
-            color: var(--primary-color);
             overflow: hidden;
+            font-family: 'Playfair Display', serif;
         }
 
-        /* --- ESTILOS DE LA PANTALLA PRINCIPAL --- */
-        h1 {
-            font-family: 'Brush Script MT', cursive, sans-serif;
-            font-size: 3rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            text-align: center;
+        /* --- TÍTULO PRINCIPAL --- */
+        .titulo-principal {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4.5rem;
+            color: var(--text-red);
+            margin-top: 40px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            z-index: 10;
         }
 
-        .caja-chocolates {
-            background-color: var(--box-color);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3), inset 0 0 20px rgba(0,0,0,0.5);
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* Cuadrícula de 2x2 */
-            gap: 25px;
+        /* --- LA CAJA DE CHOCOLATES --- */
+        .contenedor-caja {
             position: relative;
-        }
-
-        .caja-chocolates::before {
-            /* Tapa de la caja simulada en la parte superior */
-            content: '';
-            position: absolute;
-            top: -20px;
-            left: 0;
-            width: 100%;
-            height: 20px;
-            background-color: #e11d48;
-            border-radius: 10px 10px 0 0;
-        }
-
-        .chocolate {
-            width: 80px;
-            height: 80px;
-            background-color: white; /* Fondo blanco circular para resaltar el emoji/imagen */
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 3rem;
+            margin-top: 50px;
+            width: 260px;
+            height: 260px;
             cursor: pointer;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .chocolate:hover {
-            transform: scale(1.15) translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-
-        /* --- ESTILOS DE LAS TARJETAS (MODALES) --- */
-        .modal-overlay {
-            position: fixed;
+        .base-caja {
+            position: absolute;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.6);
+            width: 100%;
+            height: 100%;
+            background-color: var(--box-dark);
+            border-radius: 4px;
+            box-shadow: 10px 10px 20px rgba(0,0,0,0.3);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            padding: 20px;
+            gap: 15px;
+        }
+
+        /* Tapa de la caja (La roja) */
+        .tapa-caja {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 270px;
+            height: 270px;
+            background-color: var(--box-red);
+            border-radius: 4px;
+            box-shadow: 5px 15px 25px rgba(0,0,0,0.4);
+            z-index: 20;
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 100;
-            backdrop-filter: blur(5px);
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
         }
+
+        .tapa-caja.abierta {
+            transform: translateY(-300px) rotate(5deg);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Decoraciones de la tapa */
+        .cinta {
+            position: absolute;
+            background-color: #fdf5e6;
+            width: 60px;
+            height: 10px;
+        }
+        .cinta.izq { top: 20px; left: -10px; transform: rotate(-45deg); }
+        .cinta.der { bottom: 20px; right: -10px; transform: rotate(-45deg); }
+        
+        .etiqueta-tapa {
+            border: 1.5px solid #fdf5e6;
+            padding: 20px;
+            text-align: center;
+            width: 140px;
+            height: 180px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .etiqueta-tapa span {
+            font-family: 'Great Vibes', cursive;
+            color: #fdf5e6;
+            font-size: 2.2rem;
+            line-height: 1.1;
+        }
+
+        /* --- DISEÑO DE LOS CHOCOLATES CON CSS --- */
+        .chocolate {
+            position: relative;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .chocolate:hover { transform: scale(1.1); }
+
+        /* 1. Chocolate Blanco con espiral */
+        .choc-1 {
+            background: radial-gradient(circle at 30% 30%, #fff 0%, #f3ebd8 70%, #d8c3a5 100%);
+            border-radius: 40% 40% 50% 50% / 60% 60% 40% 40%;
+        }
+        .choc-1::after {
+            content: '';
+            position: absolute;
+            width: 50%; height: 50%;
+            border: 2px solid #a67c52;
+            border-radius: 50%;
+            border-bottom-color: transparent; border-left-color: transparent;
+            top: 15%; transform: rotate(-20deg);
+        }
+
+        /* 2. Chocolate Blanco con rayas horizontales */
+        .choc-2 {
+            background: repeating-linear-gradient(0deg, #f3ebd8, #f3ebd8 8px, #5c3a21 8px, #5c3a21 12px);
+            border-radius: 50%;
+            box-shadow: inset -5px -5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* 3. Chocolate de leche con garabatos blancos */
+        .choc-3 {
+            background: radial-gradient(circle at 30% 30%, #a67c52, #5c3a21);
+            border-radius: 50%;
+            box-shadow: inset -5px -5px 15px rgba(0,0,0,0.5);
+        }
+        .choc-3::before {
+            content: ''; position: absolute;
+            width: 80%; height: 40%;
+            border: 2px solid #f3ebd8;
+            border-radius: 50%; border-top-color: transparent; border-bottom-color: transparent;
+            transform: rotate(45deg);
+        }
+
+        /* 4. Chocolate base oscura con crema rosada y chispas */
+        .choc-4 {
+            background: #2b170b;
+            border-radius: 20% 20% 50% 50%;
+            position: relative;
+        }
+        .choc-4::after {
+            content: ''; position: absolute;
+            top: -5px; left: 5%; width: 90%; height: 65%;
+            background: radial-gradient(circle at 30% 30%, #ffb6c1, #ff69b4);
+            border-radius: 50%;
+            /* Simulando chispitas con box-shadows */
+            box-shadow: inset -2px -2px 5px rgba(0,0,0,0.2);
+        }
+        .flecha-choc {
+            position: absolute; right: -15px; bottom: 0; font-size: 1.5rem; z-index: 5; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* --- TARJETAS (MODALES) --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 100;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s;
+        }
+        .modal-overlay.activo { opacity: 1; pointer-events: auto; }
 
         .modal-card {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            background: #fffafa;
+            /* Textura sutil simulando el papel floral */
+            background-image: radial-gradient(#ffe4e1 1px, transparent 1px);
+            background-size: 20px 20px;
+            padding: 35px 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             text-align: center;
-            max-width: 350px;
-            width: 90%;
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            width: 320px;
+            position: relative;
+            transform: scale(0.8) translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-
-        @keyframes popIn {
-            0% { opacity: 0; transform: scale(0.8) translateY(20px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
-        }
+        .modal-overlay.activo .modal-card { transform: scale(1) translateY(0); }
 
         .modal-card h2 {
-            font-size: 1.8rem;
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.8rem;
+            color: var(--text-red);
             margin-bottom: 20px;
-            font-family: 'Brush Script MT', cursive, sans-serif;
         }
 
-        .modal-card img {
-            max-width: 100%;
-            border-radius: 12px;
+        .imagen-tarjeta {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 8px;
             margin-bottom: 20px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .modal-card p {
-            font-size: 1rem;
-            line-height: 1.5;
+            font-size: 1.05rem;
+            color: #4a4a4a;
+            line-height: 1.6;
             margin-bottom: 25px;
-            color: #333;
+            padding: 0 10px;
+        }
+
+        .contenedor-boton {
+            position: relative;
+            display: inline-block;
         }
 
         .btn-cerrar {
-            background-color: var(--primary-color);
-            color: white;
+            background-color: #f8c8d1;
+            color: var(--text-red);
             border: none;
-            padding: 10px 25px;
+            padding: 8px 30px;
             font-size: 1rem;
             border-radius: 20px;
             cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.2s;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        /* Corazones flechados del botón */
+        .adorno-boton {
+            position: absolute;
+            right: -15px;
+            bottom: -10px;
+            font-size: 1.5rem;
         }
 
-        .btn-cerrar:hover {
-            background-color: #9d174d;
-        }
-
-        .hidden {
-            display: none !important;
+        /* Flores en la esquina */
+        .flores-esquina {
+            position: absolute;
+            bottom: -10px;
+            right: -10px;
+            font-size: 4rem;
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
 
-    <!-- TÍTULO PRINCIPAL -->
-    <h1>Para ti - Te Amo</h1>
+    <h1 class="titulo-principal">Para ti - Te Amo</h1>
 
-    <!-- CAJA DE CHOCOLATES -->
-    <div class="caja-chocolates">
-        <!-- Puedes cambiar los emojis por etiquetas <img> si tienes imágenes PNG de chocolates -->
-        <div class="chocolate" id="btn-choc-1" title="Eres increíble">🍩</div>
-        <div class="chocolate" id="btn-choc-2" title="Gracias por todo">🧁</div>
-        <div class="chocolate" id="btn-choc-3" title="Mi lugar favorito">🍫</div>
-        <div class="chocolate" id="btn-choc-4" title="Te amo infinito">🍬</div>
+    <div class="contenedor-caja" id="caja">
+        <!-- Interior de la caja -->
+        <div class="base-caja">
+            <div class="chocolate choc-1" id="btn-1"></div>
+            <div class="chocolate choc-2" id="btn-2"></div>
+            <div class="chocolate choc-3" id="btn-3"></div>
+            <div class="chocolate choc-4" id="btn-4">
+                <span class="flecha-choc">💘</span>
+            </div>
+        </div>
+        
+        <!-- Tapa de la caja (Haz clic aquí para abrir) -->
+        <div class="tapa-caja" id="tapa">
+            <div class="cinta izq"></div>
+            <div class="cinta der"></div>
+            <div class="etiqueta-tapa">
+                <span>Para<br>mi<br>Amor</span>
+            </div>
+        </div>
     </div>
 
-
-    <!-- ==========================================
-         SECCIÓN DE TARJETAS (UNA POR CHOCOLATE) 
-         ========================================== -->
-
     <!-- TARJETA 1 -->
-    <div class="modal-overlay hidden" id="modal-1">
+    <div class="modal-overlay" id="modal-1">
         <div class="modal-card">
             <h2>Eres increíble</h2>
-            <!-- Cambia este enlace por el GIF o imagen que quieras para la tarjeta 1 -->
-            <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="Animación 1">
-            <p>Amo tu forma de ser y tu hermoso corazón. Eres la mejor compañía de vida que pude encontrar.</p>
-            <button class="btn-cerrar" data-target="modal-1">Cerrar</button>
+            <!-- Coloca aquí la URL de la imagen de Spiderman/Kitty -->
+            <img src="https://via.placeholder.com/150x150/ffffff/a32a33?text=Foto+Spiderman" alt="Animación 1" class="imagen-tarjeta">
+            <p>Amo tu forma de ser y tu hermoso corazón. Eres la mejor compañera de vida que pude encontrar.</p>
+            <div class="contenedor-boton">
+                <button class="btn-cerrar" data-target="modal-1">Cerrar</button>
+                <span class="adorno-boton">💘</span>
+            </div>
+            <div class="flores-esquina">🌷</div>
         </div>
     </div>
 
     <!-- TARJETA 2 -->
-    <div class="modal-overlay hidden" id="modal-2">
+    <div class="modal-overlay" id="modal-2">
         <div class="modal-card">
             <h2>Gracias por todo</h2>
-            <!-- Cambia este enlace por el GIF o imagen que quieras para la tarjeta 2 -->
-            <img src="https://media.giphy.com/media/l4pTdcifPZLpDjL1e/giphy.gif" alt="Animación 2">
+            <!-- Coloca aquí la URL de la imagen abstracta -->
+            <img src="https://via.placeholder.com/150x150/ffffff/a32a33?text=Foto+Abstracta" alt="Animación 2" class="imagen-tarjeta">
             <p>Mi amor, gracias por tu cariño incondicional y por hacer cada uno de mis días más especiales.</p>
-            <button class="btn-cerrar" data-target="modal-2">Cerrar</button>
+            <div class="contenedor-boton">
+                <button class="btn-cerrar" data-target="modal-2">Cerrar</button>
+                <span class="adorno-boton">💘</span>
+            </div>
+            <div class="flores-esquina">🌷</div>
         </div>
     </div>
 
     <!-- TARJETA 3 -->
-    <div class="modal-overlay hidden" id="modal-3">
+    <div class="modal-overlay" id="modal-3">
         <div class="modal-card">
-            <h2>Mi lugar favorito</h2>
-            <!-- Cambia este enlace por el GIF o imagen que quieras para la tarjeta 3 -->
-            <img src="https://media.giphy.com/media/3o7TKoWXm3okO1kgHC/giphy.gif" alt="Animación 3">
-            <p>Mi lugar favorito en el mundo siempre será entre tus brazos. Gracias por hacerme tan feliz.</p>
-            <button class="btn-cerrar" data-target="modal-3">Cerrar</button>
+            <h2>Te amo infinito</h2>
+            <!-- Coloca aquí la URL de la imagen de Spiderman/Kitty -->
+            <img src="https://via.placeholder.com/150x150/ffffff/a32a33?text=Foto+Spiderman" alt="Animación 3" class="imagen-tarjeta">
+            <p>No hay palabras suficientes para describir cuánto te quiero. ¡Eres lo mejor que me ha pasado!</p>
+            <div class="contenedor-boton">
+                <button class="btn-cerrar" data-target="modal-3">Cerrar</button>
+                <span class="adorno-boton">💘</span>
+            </div>
+            <div class="flores-esquina">🌷</div>
         </div>
     </div>
 
     <!-- TARJETA 4 -->
-    <div class="modal-overlay hidden" id="modal-4">
+    <div class="modal-overlay" id="modal-4">
         <div class="modal-card">
-            <h2>Te amo infinito</h2>
-            <!-- Cambia este enlace por el GIF o imagen que quieras para la tarjeta 4 -->
-            <img src="https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif" alt="Animación 4">
-            <p>No hay palabras suficientes para describir cuánto te quiero. ¡Eres lo mejor que me ha pasado!</p>
-            <button class="btn-cerrar" data-target="modal-4">Cerrar</button>
+            <h2>Mi lugar favorito</h2>
+            <!-- Coloca aquí la URL de la foto de la pareja abrazada -->
+            <img src="https://via.placeholder.com/150x150/ffffff/a32a33?text=Foto+Pareja" alt="Animación 4" class="imagen-tarjeta">
+            <p>Mi lugar favorito en el mundo siempre será entre tus brazos. Gracias por hacerme tan feliz.</p>
+            <div class="contenedor-boton">
+                <button class="btn-cerrar" data-target="modal-4">Cerrar</button>
+                <span class="adorno-boton">💘</span>
+            </div>
+            <div class="flores-esquina">🌷</div>
         </div>
     </div>
 
-
-    <!-- ==========================================
-         LÓGICA JAVASCRIPT (No necesitas tocar esto)
-         ========================================== -->
     <script>
-        // Función para abrir un modal específico
+        // Animación para abrir la caja principal
+        const tapa = document.getElementById('tapa');
+        tapa.addEventListener('click', () => {
+            tapa.classList.add('abierta');
+        });
+
+        // Lógica para abrir y cerrar las tarjetas de los chocolates
         const abrirModal = (idModal) => {
-            document.getElementById(idModal).classList.remove('hidden');
+            document.getElementById(idModal).classList.add('activo');
         };
 
-        // Función para cerrar cualquier modal
         const cerrarModal = (idModal) => {
-            document.getElementById(idModal).classList.add('hidden');
+            document.getElementById(idModal).classList.remove('activo');
         };
 
-        // Asignar eventos de clic a cada chocolate
-        document.getElementById('btn-choc-1').addEventListener('click', () => abrirModal('modal-1'));
-        document.getElementById('btn-choc-2').addEventListener('click', () => abrirModal('modal-2'));
-        document.getElementById('btn-choc-3').addEventListener('click', () => abrirModal('modal-3'));
-        document.getElementById('btn-choc-4').addEventListener('click', () => abrirModal('modal-4'));
+        document.getElementById('btn-1').addEventListener('click', () => abrirModal('modal-1'));
+        document.getElementById('btn-2').addEventListener('click', () => abrirModal('modal-2'));
+        document.getElementById('btn-3').addEventListener('click', () => abrirModal('modal-3'));
+        document.getElementById('btn-4').addEventListener('click', () => abrirModal('modal-4'));
 
-        // Asignar eventos de clic a todos los botones de "Cerrar"
         document.querySelectorAll('.btn-cerrar').forEach(boton => {
             boton.addEventListener('click', (e) => {
                 const modalObjetivo = e.target.getAttribute('data-target');
