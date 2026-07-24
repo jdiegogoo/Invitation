@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>¿Quieres ir a bailar salsa conmigo?</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    overflow:hidden;
+
+    background:linear-gradient(135deg,#fff5ec,#ffe8d6);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.floating{
+    position:absolute;
+    font-size:30px;
+    animation:float 10s linear infinite;
+    opacity:.25;
+}
+
+@keyframes float{
+
+0%{
+transform:translateY(100vh) rotate(0deg);
+}
+
+100%{
+transform:translateY(-120vh) rotate(360deg);
+}
+
+}
+
+.card{
+
+width:90%;
+max-width:750px;
+
+background:white;
+
+border-radius:30px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.15);
+
+padding:30px;
+
+text-align:center;
+
+position:relative;
+
+}
+
+h1{
+
+font-size:2.3rem;
+color:#d62828;
+margin-bottom:20px;
+
+}
+
+.subtitle{
+
+font-size:18px;
+color:#555;
+margin-bottom:25px;
+
+}
+
+.gallery{
+
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+margin-bottom:30px;
+
+}
+
+.gallery img{
+
+width:100%;
+height:180px;
+object-fit:cover;
+border-radius:20px;
+
+}
+
+.buttons{
+
+position:relative;
+height:180px;
+
+}
+
+button{
+
+border:none;
+padding:18px 40px;
+font-size:22px;
+border-radius:50px;
+cursor:pointer;
+transition:.25s;
+font-weight:bold;
+
+}
+
+#yes{
+
+background:#e63946;
+color:white;
+
+animation:pulse 1s infinite;
+
+position:absolute;
+left:28%;
+top:50%;
+
+transform:translate(-50%,-50%);
+
+}
+
+@keyframes pulse{
+
+0%{transform:translate(-50%,-50%) scale(1);}
+50%{transform:translate(-50%,-50%) scale(1.08);}
+100%{transform:translate(-50%,-50%) scale(1);}
+
+}
+
+#no{
+
+background:#777;
+color:white;
+
+position:absolute;
+left:72%;
+top:50%;
+
+transform:translate(-50%,-50%);
+
+}
+
+#message{
+
+margin-top:20px;
+font-size:20px;
+color:#444;
+font-weight:600;
+
+}
+
+.success{
+
+position:fixed;
+inset:0;
+display:none;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+background:rgba(255,245,236,.95);
+z-index:999;
+
+}
+
+.success h2{
+
+font-size:60px;
+color:#d62828;
+margin-bottom:20px;
+
+}
+
+.success p{
+
+font-size:28px;
+margin-bottom:30px;
+
+}
+
+.success span{
+
+font-size:80px;
+
+animation:spin 4s linear infinite;
+
+}
+
+@keyframes spin{
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+.confetti{
+
+position:absolute;
+width:12px;
+height:12px;
+background:red;
+animation:fall 4s linear infinite;
+
+}
+
+@keyframes fall{
+
+0%{
+transform:translateY(-100vh) rotate(0deg);
+}
+
+100%{
+transform:translateY(100vh) rotate(720deg);
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="floating" style="left:5%;animation-duration:8s;">🎺</div>
+<div class="floating" style="left:15%;animation-duration:12s;">💃</div>
+<div class="floating" style="left:35%;animation-duration:10s;">🎶</div>
+<div class="floating" style="left:65%;animation-duration:13s;">🕺</div>
+<div class="floating" style="left:85%;animation-duration:9s;">❤️</div>
+
+<div class="card">
+
+<h1>💃 ¿Quieres ir a bailar salsa a La Topa conmigo? 🕺</h1>
+
+<div class="subtitle">
+Prometo no pisarte... bueno... intentaré 😅
+</div>
+
+<div class="gallery">
+
+<img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=700&q=80">
+
+<img src="https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?auto=format&fit=crop&w=700&q=80">
+
+<img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=700&q=80">
+
+</div>
+
+<div class="buttons">
+
+<button id="yes">
+❤️ Sí
+</button>
+
+<button id="no">
+💔 No
+</button>
+
+</div>
+
+<div id="message">
+❤️ Esta noche toca romper la pista.
+</div>
+
+</div>
+
+<div class="success" id="success">
+
+<span>💃🕺</span>
+
+<h2>¡¡Sabía que dirías que sí!! ❤️</h2>
+
+<p>
+Prepárate... ¡vamos a conquistar La Topa! 🎶
+</p>
+
+<h1>🥰</h1>
+
+</div>
+
+<script>
+
+const noBtn=document.getElementById("no");
+const yesBtn=document.getElementById("yes");
+const message=document.getElementById("message");
+const success=document.getElementById("success");
+
+let count=0;
+
+const texts=[
+
+"🥺 ¿Segura?",
+"Prometo no pisarte 😅",
+"En La Topa ponen pura salsa buena...",
+"Ya casi te convenzo 😏",
+"El 'Sí' se ve mucho mejor ❤️",
+"¿Y si solo bailamos una canción? 💃",
+"Ya no seas así 😭"
+
+];
+
+noBtn.addEventListener("mouseover",moveNo);
+noBtn.addEventListener("click",moveNo);
+
+function moveNo(){
+
+count++;
+
+message.innerHTML=texts[Math.min(count-1,texts.length-1)];
+
+const x=Math.random()*70+10;
+const y=Math.random()*65+15;
+
+noBtn.style.left=x+"%";
+noBtn.style.top=y+"%";
+
+let scale=Math.max(.15,1-count*.12);
+
+noBtn.style.transform=`translate(-50%,-50%) scale(${scale})`;
+
+let yesScale=1+count*.15;
+
+yesBtn.style.transform=`translate(-50%,-50%) scale(${yesScale})`;
+
+}
+
+yesBtn.onclick=()=>{
+
+success.style.display="flex";
+
+for(let i=0;i<150;i++){
+
+let conf=document.createElement("div");
+
+conf.className="confetti";
+
+conf.style.left=Math.random()*100+"vw";
+
+conf.style.animationDelay=Math.random()*3+"s";
+
+conf.style.background=
+
+["#e63946","#ffd166","#06d6a0","#118ab2","#ef476f"][Math.floor(Math.random()*5)];
+
+document.body.appendChild(conf);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
