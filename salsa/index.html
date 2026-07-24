@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Optimización móvil -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <!-- Compatibilidad Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="theme-color" content="#d62828">
+
+    <title>¿Bailamos salsa? 💃❤️</title>
+
+    <meta name="description" content="Una invitación especial para bailar salsa en La Topa ❤️">
+
+    <!-- Favicon -->
+    <link rel="icon" href="./img/logo.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/animations.css">
+    <link rel="stylesheet" href="./css/responsive.css">
+
+</head>
+
+
+<body>
+
+    <!-- Fondo animado -->
+    <div class="background-effects" aria-hidden="true">
+
+        <span class="music-note">🎵</span>
+        <span class="music-note">🎺</span>
+        <span class="music-note">💃</span>
+        <span class="music-note">❤️</span>
+        <span class="music-note">🕺</span>
+
+    </div>
+
+
+    <!-- Contenedor principal -->
+
+    <main class="app-container">
+
+
+        <section class="love-card">
+
+
+            <!-- Imagen principal -->
+
+            <div class="hero-image">
+
+                <img 
+                    src="./img/hero.jpg"
+                    alt="Pareja bailando salsa"
+                    loading="lazy"
+                >
+
+                <div class="hero-overlay"></div>
+
+            </div>
+
+
+
+            <!-- Contenido -->
+
+            <div class="content">
+
+
+                <p class="small-title">
+                    Tengo una pregunta importante...
+                </p>
+
+
+                <h1>
+                    💃 ¿Quieres ir a bailar salsa<br>
+                    a La Topa conmigo? 🕺
+                </h1>
+
+
+                <p class="subtitle">
+
+                    Prometo seguir el ritmo...
+                    aunque quizá necesite una clase antes 😅
+
+                </p>
+
+
+
+                <!-- Galería -->
+
+                <div class="gallery">
+
+                    <img 
+                        src="./img/salsa1.jpg"
+                        alt="Baile salsa"
+                        loading="lazy"
+                    >
+
+                    <img 
+                        src="./img/salsa2.jpg"
+                        alt="Ambiente salsero"
+                        loading="lazy"
+                    >
+
+                    <img 
+                        src="./img/salsa3.jpg"
+                        alt="Noche de salsa"
+                        loading="lazy"
+                    >
+
+                </div>
+
+
+
+                <!-- Zona botones -->
+
+                <div class="question-area">
+
+
+                    <button 
+                        id="yesButton"
+                        class="btn btn-yes"
+                        type="button"
+                    >
+                        ❤️ Sí, vamos
+                    </button>
+
+
+
+                    <button 
+                        id="noButton"
+                        class="btn btn-no"
+                        type="button"
+                    >
+                        💔 No
+                    </button>
+
+
+                </div>
+
+
+
+                <!-- Mensajes dinámicos -->
+
+                <p 
+                    id="message"
+                    class="message"
+                    aria-live="polite"
+                >
+                    La pista de baile nos espera 🎶
+                </p>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+
+    <!-- Pantalla final -->
+
+    <section 
+        id="successScreen"
+        class="success-screen"
+    >
+
+
+        <div class="success-content">
+
+
+            <div class="dance-animation">
+                💃🕺
+            </div>
+
+
+            <h2>
+                ¡Sabía que dirías que sí! ❤️
+            </h2>
+
+
+            <p>
+                Prepárate para una noche de salsa,
+                risas y buenos recuerdos en La Topa 🎺
+            </p>
+
+
+            <button 
+                id="restartButton"
+                class="btn btn-yes"
+            >
+                Volver a bailar 💃
+            </button>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- Contenedor confeti -->
+
+    <div id="confettiContainer"></div>
+
+
+
+    <!-- Audio -->
+
+    <audio 
+        id="salsaMusic"
+        preload="none"
+    >
+
+        <source 
+            src="./audio/salsa.mp3"
+            type="audio/mpeg"
+        >
+
+    </audio>
+
+
+
+    <!-- JavaScript -->
+
+    <script src="./js/confetti.js" defer></script>
+    <script src="./js/buttons.js" defer></script>
+    <script src="./js/music.js" defer></script>
+    <script src="./js/app.js" defer></script>
+
+
+</body>
+
+</html>

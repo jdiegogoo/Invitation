@@ -1,0 +1,363 @@
+/* =========================================
+   SALSA DATE
+   responsive.css
+   Ajustes para móviles y tablets
+========================================= */
+
+
+/* ---------- Pantallas pequeñas ----------
+   iPhone SE, Android compactos
+------------------------------------------ */
+
+@media (max-width: 380px) {
+
+
+    .app-container {
+
+        padding-left:15px;
+        padding-right:15px;
+
+    }
+
+
+
+    .hero-image {
+
+        height:210px;
+
+    }
+
+
+
+    .content {
+
+        padding:
+
+            22px
+            16px
+            20px;
+
+    }
+
+
+
+    h1 {
+
+        font-size:1.45rem;
+
+    }
+
+
+
+    .subtitle {
+
+        font-size:.9rem;
+
+    }
+
+
+
+    .gallery img {
+
+        height:70px;
+
+    }
+
+
+
+    .question-area {
+
+        height:145px;
+
+    }
+
+
+
+    .btn {
+
+        padding:
+
+            14px
+            20px;
+
+        font-size:.9rem;
+
+    }
+
+
+
+}
+
+
+
+
+/* ---------- iPhone normales ----------
+   iPhone 11, 12, 13, 14, 15
+------------------------------------------ */
+
+@media (min-width:381px) and (max-width:480px){
+
+
+
+    .love-card {
+
+        max-width:420px;
+
+    }
+
+
+
+    h1 {
+
+        font-size:1.7rem;
+
+    }
+
+
+
+}
+
+
+
+
+/* ---------- Pantallas grandes ----------
+   iPhone Pro Max, Android grandes
+------------------------------------------ */
+
+@media (min-width:481px){
+
+
+    .love-card {
+
+        max-width:450px;
+
+    }
+
+
+
+    .hero-image {
+
+        height:280px;
+
+    }
+
+
+
+}
+
+
+
+/* ---------- Tablets ---------- */
+
+
+@media (min-width:768px){
+
+
+
+    .love-card {
+
+
+        max-width:520px;
+
+
+    }
+
+
+
+    .hero-image {
+
+
+        height:330px;
+
+
+    }
+
+
+
+    h1 {
+
+
+        font-size:2.1rem;
+
+
+    }
+
+
+
+    .gallery img {
+
+
+        height:120px;
+
+
+    }
+
+
+
+}
+
+
+
+
+
+/* ---------- Orientación horizontal ----------
+   Evita que la tarjeta quede cortada
+--------------------------------------------- */
+
+
+@media (max-height:600px) and (orientation:landscape){
+
+
+
+    .app-container {
+
+
+        align-items:flex-start;
+
+
+        padding-top:20px;
+
+
+    }
+
+
+
+    .love-card {
+
+
+        display:flex;
+
+
+        max-width:850px;
+
+
+    }
+
+
+
+    .hero-image {
+
+
+        width:40%;
+
+        height:auto;
+
+
+    }
+
+
+
+    .content {
+
+
+        width:60%;
+
+
+        overflow-y:auto;
+
+
+        max-height:90vh;
+
+
+    }
+
+
+
+}
+
+
+
+/* ---------- Accesibilidad ----------
+   Usuarios con menos movimiento
+------------------------------------- */
+
+
+@media (prefers-reduced-motion:reduce){
+
+
+    *,
+    *::before,
+    *::after {
+
+
+        animation-duration:.01ms !important;
+
+        animation-iteration-count:1 !important;
+
+        transition-duration:.01ms !important;
+
+
+    }
+
+
+}
+
+
+
+/* ---------- Modo oscuro automático ----------
+   Respeta configuración del teléfono
+--------------------------------------------- */
+
+
+@media (prefers-color-scheme:dark){
+
+
+    body {
+
+
+        background:
+
+            linear-gradient(
+                135deg,
+                #2b1b1b,
+                #3b2424
+            );
+
+
+    }
+
+
+
+    .love-card {
+
+
+        background:#181818;
+
+        color:white;
+
+
+    }
+
+
+
+    h1 {
+
+
+        color:white;
+
+
+    }
+
+
+
+    .subtitle {
+
+
+        color:#ccc;
+
+
+    }
+
+
+
+    .message {
+
+
+        color:#ff8fa3;
+
+
+    }
+
+
+
+}

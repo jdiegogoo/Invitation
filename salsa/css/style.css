@@ -1,0 +1,538 @@
+/* =========================================
+   SALSA DATE
+   style.css
+   Diseño base
+========================================= */
+
+
+/* ---------- Variables ---------- */
+
+:root {
+
+    --primary: #d62828;
+    --primary-dark: #a61e1e;
+
+    --gold: #ffd166;
+    --cream: #fff8ef;
+
+    --dark: #252525;
+    --gray: #666;
+
+    --white: #ffffff;
+
+    --shadow:
+        0 20px 50px rgba(0,0,0,.15);
+
+    --radius-xl: 32px;
+    --radius-lg: 22px;
+    --radius-md: 14px;
+
+}
+
+
+
+/* ---------- Reset ---------- */
+
+* {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
+
+
+body {
+
+    min-height: 100dvh;
+
+    overflow-x: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff8ef 0%,
+            #ffe5d0 45%,
+            #ffd6a5 100%
+        );
+
+    color: var(--dark);
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+}
+
+
+
+/* ---------- Fondo ---------- */
+
+.background-effects {
+
+    position: fixed;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: 0;
+
+}
+
+
+
+.music-note {
+
+    position: absolute;
+
+    opacity: .18;
+
+    font-size: 35px;
+
+}
+
+
+
+/* posiciones iniciales */
+
+.music-note:nth-child(1){
+
+    left:10%;
+    top:15%;
+
+}
+
+.music-note:nth-child(2){
+
+    left:80%;
+    top:20%;
+
+}
+
+.music-note:nth-child(3){
+
+    left:15%;
+    top:75%;
+
+}
+
+.music-note:nth-child(4){
+
+    left:75%;
+    top:70%;
+
+}
+
+.music-note:nth-child(5){
+
+    left:50%;
+    top:40%;
+
+}
+
+
+
+/* ---------- Contenedor ---------- */
+
+
+.app-container {
+
+    min-height:100dvh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:
+
+        env(safe-area-inset-top)
+        20px
+        env(safe-area-inset-bottom);
+
+    position:relative;
+
+    z-index:1;
+
+}
+
+
+
+/* ---------- Tarjeta principal ---------- */
+
+
+.love-card {
+
+    width:100%;
+
+    max-width:430px;
+
+    background:var(--white);
+
+    border-radius:var(--radius-xl);
+
+    overflow:hidden;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+
+/* ---------- Imagen principal ---------- */
+
+
+.hero-image {
+
+    height:260px;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+
+
+.hero-image img {
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+}
+
+
+
+.hero-overlay {
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.35),
+            transparent
+        );
+
+}
+
+
+
+/* ---------- Contenido ---------- */
+
+
+.content {
+
+    padding:28px 22px 25px;
+
+    text-align:center;
+
+}
+
+
+
+.small-title {
+
+    color:var(--primary);
+
+    font-size:.9rem;
+
+    font-weight:600;
+
+    margin-bottom:10px;
+
+}
+
+
+
+h1 {
+
+    color:var(--dark);
+
+    font-size:1.8rem;
+
+    line-height:1.25;
+
+    font-weight:800;
+
+    margin-bottom:18px;
+
+}
+
+
+
+.subtitle {
+
+    color:var(--gray);
+
+    font-size:1rem;
+
+    line-height:1.5;
+
+    margin-bottom:25px;
+
+}
+
+
+
+/* ---------- Galería ---------- */
+
+
+.gallery {
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:10px;
+
+    margin-bottom:35px;
+
+}
+
+
+
+.gallery img {
+
+    width:100%;
+
+    height:85px;
+
+    object-fit:cover;
+
+    border-radius:var(--radius-md);
+
+}
+
+
+
+/* ---------- Botones ---------- */
+
+
+.question-area {
+
+    position:relative;
+
+    height:160px;
+
+}
+
+
+
+.btn {
+
+    border:none;
+
+    cursor:pointer;
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    padding:
+
+        16px
+        28px;
+
+    border-radius:999px;
+
+    min-height:54px;
+
+    touch-action:manipulation;
+
+    user-select:none;
+
+}
+
+
+
+.btn-yes {
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #e63946,
+            #d62828
+        );
+
+    color:white;
+
+    box-shadow:
+
+        0 10px 25px rgba(214,40,40,.35);
+
+}
+
+
+
+.btn-no {
+
+    background:#777;
+
+    color:white;
+
+    position:absolute;
+
+}
+
+
+
+#yesButton {
+
+    left:28%;
+
+    top:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+}
+
+
+
+#noButton {
+
+    left:72%;
+
+    top:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+}
+
+
+
+/* ---------- Mensaje ---------- */
+
+
+.message {
+
+    min-height:28px;
+
+    color:var(--primary);
+
+    font-weight:600;
+
+    font-size:.95rem;
+
+}
+
+
+
+/* ---------- Pantalla éxito ---------- */
+
+
+.success-screen {
+
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    padding:25px;
+
+    background:
+
+        rgba(255,248,239,.96);
+
+    z-index:100;
+
+}
+
+
+
+.success-content {
+
+    max-width:420px;
+
+}
+
+
+
+.dance-animation {
+
+    font-size:80px;
+
+    margin-bottom:25px;
+
+}
+
+
+
+.success-content h2 {
+
+    color:var(--primary);
+
+    font-size:2rem;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.success-content p {
+
+    color:var(--gray);
+
+    line-height:1.5;
+
+    margin-bottom:30px;
+
+}
+
+
+
+/* ---------- Confeti ---------- */
+
+
+#confettiContainer {
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    overflow:hidden;
+
+    z-index:200;
+
+}
