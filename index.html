@@ -1,1 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+
+<meta charset="UTF-8">
+
+<title>Mini Proyectos</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#111827;
+color:white;
+padding:40px;
+}
+
+h1{
+margin-bottom:40px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+gap:25px;
+}
+
+.card{
+background:#1f2937;
+border-radius:12px;
+overflow:hidden;
+text-decoration:none;
+color:white;
+transition:.2s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card img{
+width:100%;
+height:180px;
+object-fit:cover;
+display:block;
+}
+
+.card h2{
+padding:18px;
+font-size:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🚀 Mis Mini Proyectos</h1>
+
+<div class="grid">
+
+
+<a class="card" href="./cafe/">
+    <img src="https://placehold.co/600x400?text=Preview">
+    <h2>Cafe</h2>
+</a>
+
+<a class="card" href="./chocolates/">
+    <img src="https://placehold.co/600x400?text=Preview">
+    <h2>Chocolates</h2>
+</a>
+
+<a class="card" href="./salsa/">
+    <img src="https://placehold.co/600x400?text=Preview">
+    <h2>Salsa</h2>
+</a>
+
+<a class="card" href="./salsa_topa/">
+    <img src="https://placehold.co/600x400?text=Preview">
+    <h2>Salsa Topa</h2>
+</a>
+
+
+</div>
+
+</body>
+
+</html>

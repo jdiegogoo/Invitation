@@ -1,7 +1,7 @@
 /* =========================================
    SALSA DATE
    buttons.js
-   Lógica de botones
+   Lógica de botones corregida
 ========================================= */
 
 
@@ -11,14 +11,12 @@ const message = document.getElementById("message");
 
 
 let noAttempts = 0;
-
 let yesScale = 1;
 
 
 
 /*
-    Mensajes que aparecen cuando intenta
-    presionar NO
+    Mensajes cuando intenta decir NO
 */
 
 const noMessages = [
@@ -31,11 +29,13 @@ const noMessages = [
 
     "La Topa nos está esperando 🎺",
 
-    "Solo una canción... ¿sí? ❤️",
+    "Solo una canción... ❤️",
 
-    "Ese botón ya está dudando 😂",
+    "Ese botón está perdiendo fuerza 😂",
 
-    "Creo que el universo quiere un SÍ ✨"
+    "Creo que el destino quiere un SÍ ✨",
+
+    "Ya casi aceptas 😏"
 
 ];
 
@@ -52,26 +52,25 @@ function moveNoButton(){
 
 
     /*
-        Actualizar mensaje
+        Cambiar mensaje
     */
 
-    const index = Math.min(
+    const messageIndex = Math.min(
         noAttempts - 1,
         noMessages.length - 1
     );
 
 
     message.textContent =
-        noMessages[index];
+        noMessages[messageIndex];
 
 
-
-    /*
-        Obtener área disponible
-    */
 
     const area =
-        document.querySelector(".question-area");
+        document.querySelector(
+            ".question-area"
+        );
+
 
 
     const areaWidth =
@@ -93,46 +92,76 @@ function moveNoButton(){
 
 
     /*
-        Nuevas posiciones seguras
+        Margen de seguridad
+        para que nunca salga
+        de la tarjeta
     */
 
+    const padding = 10;
+
+
+
     const maxX =
-        areaWidth - buttonWidth;
+        areaWidth -
+        buttonWidth -
+        padding;
+
 
 
     const maxY =
-        areaHeight - buttonHeight;
-
-
-
-    const randomX =
-        Math.random() * maxX;
-
-
-    const randomY =
-        Math.random() * maxY;
+        areaHeight -
+        buttonHeight -
+        padding;
 
 
 
     /*
-        Usamos transform para mejor rendimiento
-        en Safari
+        Nueva posición aleatoria
     */
 
-    noButton.style.transform = `
+    const randomX =
+        Math.max(
+            padding,
+            Math.random() * maxX
+        );
 
-        translate3d(
-            ${randomX}px,
-            ${randomY}px,
-            0
-        )
 
-        scale(${Math.max(
-            .25,
-            1 - noAttempts * .1
-        )})
+    const randomY =
+        Math.max(
+            padding,
+            Math.random() * maxY
+        );
 
-    `;
+
+
+    /*
+        Mover usando left/top
+        y no transform completo
+        para no romper CSS
+    */
+
+    noButton.style.left =
+        randomX + "px";
+
+
+    noButton.style.top =
+        randomY + "px";
+
+
+
+    /*
+        Reducir tamaño del NO
+    */
+
+    const noScale =
+        Math.max(
+            0.35,
+            1 - (noAttempts * 0.08)
+        );
+
+
+    noButton.style.transform =
+        `scale(${noScale})`;
 
 
 
@@ -140,21 +169,19 @@ function moveNoButton(){
         Hacer crecer SI
     */
 
-    yesScale += .08;
+    yesScale += 0.08;
 
 
-    yesButton.style.transform = `
-
-        translate(-50%,-50%)
-
+    yesButton.style.transform =
+        `
+        translate(-50%, -50%)
         scale(${yesScale})
-
-    `;
+        `;
 
 
 
     /*
-        Cuando ya casi desaparece
+        Después de varios intentos
     */
 
     if(noAttempts >= 8){
@@ -162,14 +189,14 @@ function moveNoButton(){
         noButton.textContent =
             "😳";
 
-
     }
+
 
 
     if(noAttempts >= 12){
 
         noButton.style.opacity =
-            "0.25";
+            "0.35";
 
     }
 
@@ -178,8 +205,10 @@ function moveNoButton(){
 
 
 
+
+
 /*
-    Eventos mouse
+    Eventos escritorio
 */
 
 noButton.addEventListener(
@@ -196,18 +225,33 @@ noButton.addEventListener(
 
 
 
-/*
-    Eventos táctiles móviles
 
-    Importante para iPhone:
-    touchstart funciona mejor que click
+
+/*
+    Eventos móviles
+
+    Safari iPhone responde mejor
+    con pointer/touch
 */
 
 noButton.addEventListener(
-    "touchstart",
-    function(e){
+    "pointerdown",
+    function(event){
 
-        e.preventDefault();
+        event.preventDefault();
+
+        moveNoButton();
+
+    }
+);
+
+
+
+noButton.addEventListener(
+    "touchstart",
+    function(event){
+
+        event.preventDefault();
 
         moveNoButton();
 
@@ -219,24 +263,10 @@ noButton.addEventListener(
 
 
 
-/*
-    Evitar doble tap accidental
-*/
-
-noButton.addEventListener(
-    "pointerdown",
-    function(){
-
-        moveNoButton();
-
-    }
-);
-
 
 
 /*
-    Función pública para resetear
-    la experiencia
+    Reset al volver
 */
 
 function resetButtons(){
@@ -244,24 +274,36 @@ function resetButtons(){
 
     noAttempts = 0;
 
-
     yesScale = 1;
 
 
-    yesButton.style.transform =
-        "translate(-50%,-50%) scale(1)";
+
+    noButton.style.left =
+        "50%";
+
+
+    noButton.style.top =
+        "50%";
 
 
     noButton.style.transform =
-        "translate(-50%,-50%) scale(1)";
+        "translate(-50%, -50%)";
+
 
 
     noButton.style.opacity =
         "1";
 
 
+
     noButton.textContent =
         "💔 No";
+
+
+
+    yesButton.style.transform =
+        "translate(-50%, -50%) scale(1)";
+
 
 
     message.textContent =

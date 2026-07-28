@@ -1,0 +1,13 @@
+{
+  "name": "mini-sites",
+  "private": true,
+  "scripts": {
+    "generate": "node scripts/generate-index.js",
+    "screenshots": "node scripts/take-screenshots.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.0",
+    "concurrently": "^10.0.4",
+    "http-server": "^14.1.1"
+  }
+}
